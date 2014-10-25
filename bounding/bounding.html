@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>Force Layouts - Bounding Box</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<link type="text/css" rel="stylesheet" href="style.css"/>
+<style type="text/css">
+
+circle {
+stroke-width: 1.5px;
+}
+
+line {
+stroke: rgba(32,32,32,.3);
+}
+
+</style>
+</head>
+<body>
+<div id="body">
+<div id="chart"></div>
+<div id="header">bounding box</div>
+</div>
+<script type="text/javascript">
+
+var w = 1280,
+h = 800,
+r = 6,
+z = d3.scale.category20c();
+
+var force = d3.layout.force()
+.gravity(0)
+.charge(-150)
+.linkDistance(40)
+.size([w *= 2 / 3, h *= 2 / 3]);
+
+var drag = force.drag()
+    .on("dragstart", dragstarted)
+    .on("drag", dragged)
+    .on("dragend", dragended);
+
+function dragstarted(d) {
+  console.log("start dragg");
+  console.log(d);
+  d.group = d.group*-1;
+}
+
+function dragged(d) {
+  console.log("dragging");
+
+}
+
+function dragended(d) {
+	console.log("end drag")
+	// d.group = d.group*-1;
+}
+
+
+var svg = d3.select("#chart").append("svg:svg")
+.attr("width", w)
+.attr("height", h)
+.append("svg:g")
+.attr("transform", "translate(" + w / 4 + "," + h / 3 + ")");
+
+svg.append("svg:rect")
+.attr("width", w)
+.attr("height", h)
+.style("stroke", "#000");
+
+svg.append("svg:rect")
+.attr("width", w/2)
+.attr("height", h/2)
+.attr("x", w/2)
+.attr("y", h/2)
+.style("stroke", "#000");
+
+d3.json("miserables.json", function(json) {
+var link = svg.selectAll("line")
+.data(json.links)
+.enter().append("svg:line");
+
+var node = svg.selectAll("circle")
+.data(json.nodes)
+.enter().append("svg:circle")
+.attr("r", r - .75)
+.style("fill", function(d) { console.log(d.group) ;return z(d.group); })
+.style("stroke", function(d) { return d3.rgb(z(d.group)).darker(); })
+.call(force.drag);
+
+force
+.nodes(json.nodes)
+.links(json.links)
+.on("tick", tick)
+.start();
+
+function tick() {
+node.attr("cx", function(d) { 
+	if (d.group == -1){
+		return d.x = Math.max(w/2+ r , Math.min(w - r, d.x));	
+	}
+	else{
+		return d.x = Math.max(r, Math.min(w - r, d.x)); }
+	}
+	)
+.attr("cy", function(d) { 
+	if (d.group == -1){
+		return d.y = Math.max(h/2 + r, Math.min(h - r, d.y)); 
+
+	}
+	else{
+		return d.y = Math.max(r, Math.min(h - r, d.y)); 
+	}
+	});
+
+link.attr("x1", function(d) { return d.source.x; })
+.attr("y1", function(d) { return d.source.y; })
+.attr("x2", function(d) { return d.target.x; })
+.attr("y2", function(d) { return d.target.y; });
+}
+});
+
+function checkGroup(d){
+
+	//blue
+	if (d.group ==  1){
+		return d.x = Math.max(r, Math.min(w/2 - r, d.x));
+	}
+	// return d.x = Math.max(r, Math.min(w-30 - r, d.x));
+}
+
+</script>
+</body>
+</html>
