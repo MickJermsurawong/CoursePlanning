@@ -19,7 +19,7 @@ var visited = [];
     .charge(0)
     .linkDistance(140)
     .linkStrength(0)
-    .size([w , h ]);
+    .size([w*=2/3 , h*=2/3 ]);
 
     var drag = force.drag()
         .on("dragstart", dragstarted)
