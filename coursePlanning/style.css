@@ -1,0 +1,88 @@
+body {
+  overflow: hidden;
+  margin: 0;
+  font: 14px "Helvetica Neue";
+}
+
+body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+circle {
+    stroke-width: 1.5px;
+}
+
+line {
+    stroke: rgba(32,32,32,.3);
+}
+
+svg {
+  width: 1280px;
+  height: 800px;
+}
+
+#chart, #header {
+  position: absolute;
+  top: 0;
+}
+
+#header {
+  z-index: 1;
+  display: block;
+}
+
+#header {
+  top: 80px;
+  right: 140px;
+  font: 300 36px "Helvetica Neue";
+}
+
+#courseList{
+  position: fixed;
+  right: 0%;
+  bottom: 0%;
+}
+
+rect {
+  fill: none;
+  pointer-events: all;
+}
+
+pre {
+  font-size: 18px;
+}
+
+line {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.string, .regexp {
+  color: #f39;
+}
+
+.keyword {
+  color: #00c;
+}
+
+.comment {
+  color: #555;
+}
+
+.number {
+  color: #369;
+}
+
+.class, .special {
+  color: #1181B8;
+}
+
+.bounded {
+  stroke: #000;
+  stroke-width: 3.5px;
+}

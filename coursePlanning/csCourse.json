@@ -1,0 +1,17 @@
+{
+  "nodes":[
+    {"name":"IntroCS","group":1},
+    {"name":"DisCcMath","group":1},
+    {"name":"DataStruct","group":2},
+    {"name":"Algo","group":2},
+    {"name":"CSO","group":3},
+  ],
+  "links":[
+    {"source":2,"target":0,"value":1},
+    {"source":2,"target":1,"value":8},
+    {"source":3,"target":0,"value":10},
+    {"source":3,"target":1,"value":6},
+    {"source":4,"target":2,"value":1},
+    {"source":4,"target":3,"value":1},
+  ]
+}
