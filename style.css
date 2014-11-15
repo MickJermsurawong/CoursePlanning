@@ -45,7 +45,7 @@ svg {
 #courseList{
   position: fixed;
   right: 0%;
-  bottom: 0%;
+  top: 0%;
 }
 
 rect {
@@ -86,3 +86,6 @@ line {
   stroke: #000;
   stroke-width: 3.5px;
 }
+
+
+.ui-helper-hidden-accessible { position: absolute; left:-999em; }
