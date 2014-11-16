@@ -1,6 +1,6 @@
 var w = $(window).width(),
     h = $(window).height(),
-    r = w*0.01,
+    r = w*0.014,
     z = d3.scale.category20c();
     dragEle = false;
 
@@ -418,6 +418,16 @@ intializeState();
     }
 
 
+    // var explain = ["Add: Search box", "Delete: Double-click and backspace", "Waive: Drag to the left"];
+    // for (var i = 0; i < explain.length; i++) {
+    //   verColumnsCon.append("svg:text")
+    //   .text(explain[i])
+    //   .attr("x", w*widthCov+ offSet/4)
+    //   .attr("y", h/3+ (10)*i)
+    //   .attr("fill", "rgba(32,32,32,.3)");
+    // }
+
+
     var link, gnodes, node;
     var allData;
     var graph;
@@ -453,9 +463,6 @@ intializeState();
            return matcher.test(value.label || value.value || value);
         });
     };
-
-
-
 
 
     $(document).ready(function(){
