@@ -1,6 +1,6 @@
-var w = 1280,
-    h = 800,
-    r = 10,
+var w = $(window).width(),
+    h = $(window).height(),
+    r = w*0.01,
     z = d3.scale.category20c();
     dragEle = false;
 
@@ -12,21 +12,8 @@ var adjList = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [
 var newComp = [];
 var oldComp = [];
 var visited = [];
-intializeState()
-
-
-    // Dragging funcitonalities
-    var force = d3.layout.force()
-    .gravity(0)
-    .charge(-3000)
-    .linkStrength(0)
-    .size([w*=2/3 , h*=2/3 ]);
-
-    var drag = force.drag()
-        .on("dragstart", dragstarted)
-        .on("drag", dragged)
-        .on("dragend", dragended);
-
+var dictClassId = {};
+intializeState();
 
     // delete one node
     function deleteNode(whichClass){
@@ -49,7 +36,7 @@ intializeState()
 
       newCompMinusDelete(arrayDelete);
       clearNodeEdge();
-      intializeState()
+      cleanState();
       putInfo(-1);
 
     }
@@ -77,6 +64,13 @@ intializeState()
       for (var i = 0; i < revAdj.length; i++) {
         visited.push(-1);
       };
+    }
+
+    function cleanState(){
+      visited = visited.map(function(d){
+        if (d == Infinity) return 1;
+        else return -1;
+      });
     }
 
     // get subgraph that include this class
@@ -112,7 +106,7 @@ intializeState()
     function getSubRevAdj(){
       var subRevAdj = node.data().map(function(d) {return {cid: d.cid, child: []};});
       for (var i = 0; i < link.data().length; i++) {
-        subRevAdj[(link.data()[i].target.index)].child.push({cid: link.data()[i].source.index.cid, index: link.data()[i].source.index});
+        subRevAdj[(link.data()[i].target.index)].child.push({cid: link.data()[i].source.cid, index: link.data()[i].source.index});
       }
       return subRevAdj;
     }
@@ -132,6 +126,7 @@ intializeState()
       dragEle = true;
       d.group = whichBox(d);
       var valid = update();
+      console.log(d.group);
       this.classList.add("dragging");
     }
 
@@ -141,7 +136,7 @@ intializeState()
       for (var i = 0; i < link.data().length; i++) {
         var thisLink = link.data()[i];
         if (thisLink.source.group <= thisLink.target.group) thisLink.source.group = thisLink.target.group+1;
-        if (thisLink.source.group >= numSemester+1){
+        if (thisLink.source.group >= (numSemester/2)*3+1){
           valid = 0;
         }
       }
@@ -159,7 +154,7 @@ intializeState()
       else if (((valid == 0) && (source.length != link.data().length))){
         // adding of new edges to exceed
         console.log("cannot add more");
-        intializeState();
+        cleanState();
         newComp = oldComp;
         clearNodeEdge();
         putInfo(-1);
@@ -174,6 +169,12 @@ intializeState()
       for (var i = 0; i < node[0].length; i++) {
         node[0][i].classList.remove("bounded");
       };
+
+      if (d.group == 0){
+        if (!disConnect(d.index)){
+          d.group = 1;
+        }
+      }
     }
 
     //Check state classes
@@ -187,16 +188,21 @@ intializeState()
       else return false;
     }
 
-    // check which box
-    function inItsBox(d){
-      return ((d.x > boxBound[d.group-1]) && (d.x < boxBound[d.group]));
-    }
-
     function whichBox(d){
-      // console.log((d.x/boxWidth)|0);
-      return (1+ ((d.x/boxWidth)|0));
+      if (d.x - offSet < 0) return 0;
+      return (1+ (( (d.x-offSet)/boxTri)|0));
     }
 
+    // Get names and index
+    function getNames(){
+      for (var i = 0; i < allData.nodes.length; i++) {
+        dictClassId[allData.nodes[i].name] = allData.nodes[i].cid;
+      };
+      return Object.keys(dictClassId);
+    }
+
+
+    // Clear before adding
     function clearNodeEdge(){
       link = svg.selectAll("line")
       .data([])
@@ -209,14 +215,42 @@ intializeState()
       .remove();
     }
 
+    // disconnect()
+    function disConnect(indexNode){
+      // check if can be waved
+      // no edges depend on it
+      var subRevAdj = getSubRevAdj();
+      var root = 1;
+      for (var i = 0; i < subRevAdj.length; i++) {
+        for (var j = 0; j < subRevAdj[i].child.length; j++) {
+          if (subRevAdj[indexNode].cid == subRevAdj[i].child[j].cid)
+            root = 0;
+        }
+      }
+      if (root == 1){
+
+        newCompMinusDelete([subRevAdj[indexNode].cid]);
+        clearNodeEdge();
+        // intializeState()
+        visited[[subRevAdj[indexNode].cid]] = Infinity;
+        putInfo(-1);
+        return true;
+
+      }
+      else{
+        return false;
+      }
+
+
+    }
+
+    // Put the class
     function putInfo(classIndex){
-      // newComp = [];
-      // intializeState();
+
       oldComp = newComp.map(function(d){return d;});
       if (classIndex != -1){
         getConnectedComp(classIndex);
       }
-      // console.log(newComp);
       var thisLinks = getObj();
       var thisNodes = [];
       for (var i = 0; i < newComp.length; i++) {
@@ -261,7 +295,6 @@ intializeState()
       .links(json.links)
       .on("tick", tick)
       .start();
-
     }
 
     // Compress the graph
@@ -279,7 +312,7 @@ intializeState()
       // for x direction
       for (var i = 0; i < node.data().length; i++) {
         var d = node.data()[i];
-        d.x += ( boxWidth*(d.group-1) + (boxWidth/2) - d.x) * kx;
+        d.x += ( offSet +boxTri*(d.group-1) + (boxTri/2) - d.x) * kx;
         d.y += ( h/2 - d.y) * ky;
 
       };
@@ -290,9 +323,8 @@ intializeState()
           .attr("y2", function(d) { return d.target.y; });
 
       node.attr("cx", function(d) {
-          d.x = Math.max(r, Math.min(w - r, d.x)); 
+          d.x = Math.max( r, Math.min(offSet + w*widthCov - r, d.x)); 
         $(this.nextSibling).attr("x",d.x);
-
         return d.x;
         }
       )
@@ -311,27 +343,81 @@ intializeState()
     }
 
     // initializing 
-    var svg = d3.select("#chart").append("svg:svg")
+    var outerSVG = d3.select("body").append("svg:svg")
     .attr("width", w)
-    .attr("height", h)
-    .append("svg:g")
+    .attr("height", h);
 
-    // Create 8 boxes for 8 semester
-    var numSemester = 20;
-    var boxBound = [];
-    var boxWidth = w/numSemester;
+    var verColumnsCon = outerSVG.append("g");
+    var svg = outerSVG.append("svg:g");
 
+    // Dragging funcitonalities
+    var force = d3.layout.force()
+    .gravity(0)
+    .charge(-3000)
+    .linkStrength(0);
+
+    var drag = force.drag()
+        .on("dragstart", dragstarted)
+        .on("drag", dragged)
+        .on("dragend", dragended);
+
+    // Create columns for the semesters
+    var widthCov = 0.7;
+    var numSemester = 16;
+    var boxWidth = (w*widthCov)/numSemester;
+    var boxTri = ((w*widthCov)/(numSemester/2)/3);
+    var offSet = w*(1-widthCov)/2;
+
+    svg.append("svg:rect")
+    .attr("width", widthCov*w)
+    .attr("height",h)
+    .attr("x", offSet)
+    .style("stroke", "#000");
+
+    for (var i = 1; i < numSemester; i++) {
+        var columns = verColumnsCon
+        .append("svg:line")
+        .attr("x1", offSet+i*boxWidth)
+        .attr("x2", offSet+i*boxWidth)
+        .attr("y1", 0)
+        .attr("y2", h);
+        if (i%2 == 1)   columns.style("stroke-dasharray", ("3, 3"));
+        else  columns.style("stroke", "#000");
+    }
 
     for (var i = 0; i < numSemester; i++) {
-      svg.append("svg:rect")
-        .attr("width", boxWidth)
-        .attr("height", h)
-        .attr("x", i*boxWidth)
-        .attr("group",i+1)
-        .style("stroke", "#000");
-        boxBound.push(i*boxWidth);
-    };
-    // console.log(boxBound);
+        var textString = "";
+        if (i%4 < 2) textString = "FA";
+        else textString = "SP";
+        if (i%2 ==1) textString += "2";
+        else textString += "1";
+        var textSem = verColumnsCon.append("svg:text")
+        .text(textString)
+        .attr("x", offSet+i*boxWidth + boxWidth/2)
+        .attr("y", h*0.05)
+        .attr("fill", "rgba(32,32,32,.3)")
+        .style("text-anchor" ,"middle");
+    }
+
+    // add text
+    verColumnsCon.append("svg:text")
+    .text("Drag class here to waive <-")
+    .attr("x", offSet/2)
+    .attr("y", h/2)
+    .attr("fill", "rgba(32,32,32,.3)")
+    .style("text-anchor" ,"middle");
+
+    var fourYears = ["Freshman", "Sophomore", "Junior", "Senior"];
+    for (var i = 0; i < 4; i++) {
+      verColumnsCon.append("svg:text")
+      .text(fourYears[i])
+      .attr("x", offSet + (boxWidth*4)*i + (boxWidth*2))
+      .attr("y", h*0.9)
+      .attr("fill", "rgba(32,32,32,.3)")
+      .style("text-anchor" ,"middle");
+    }
+
+
     var link, gnodes, node;
     var allData;
     var graph;
@@ -345,19 +431,30 @@ intializeState()
     force.start();
     update();
 
-    // create a form
+   
+    $("#searchClass").autocomplete({
+        source: getNames(),
+        multiple: true,
+        mustMatch: false,
 
-    var templateSelectOpen = "<option ";
-    var templateSelectClose = "</option>";
-    var nodesName = allData.nodes;
-    for (var i = 0; i < nodesName.length; i++) {
-      var stringAppend = templateSelectOpen+ "value=" + nodesName[i].cid+ ">" +  nodesName[i].name + templateSelectClose;
-      $('#select-list2').append(stringAppend);
-    }
-
+    });
 
     
     });
+
+        // Overrides the default autocomplete filter function to search for matched on atleast 1 word in each of the input term's words
+    $.ui.autocomplete.filter = function (array, terms) {
+        arrayOfTerms = terms.split(" ");
+        var term = $.map(arrayOfTerms, function (tm) {
+             return $.ui.autocomplete.escapeRegex(tm);
+        }).join('|');
+       var matcher = new RegExp("\\b" + term, "i");
+        return $.grep(array, function (value) {
+           return matcher.test(value.label || value.value || value);
+        });
+    };
+
+
 
 
 
@@ -367,6 +464,10 @@ intializeState()
     $("#submitButton").click(function (e) {
       var whichClass = parseInt($('#select-list2').val());
 
+      var className = $('#searchClass').val();
+      var whichClass = dictClassId[className];
+      console.log(className);
+      console.log(whichClass);
       clearNodeEdge();
 
       putInfo(whichClass);
@@ -375,14 +476,32 @@ intializeState()
 
     });
 
+    $('#searchClass').attr('size', ((offSet/6)|0)-3 );
+
+
     $(document).on("keydown", function(e){
 
       // delete
       if (e.keyCode == 8) {
-        e.preventDefault();
         if ($('.bounded').length > 0){
+          e.preventDefault();
           var classToDelete = $('.bounded').attr("id");
           deleteNode(classToDelete);
+        }
+      }
+
+      if (e.keyCode == 13){
+        if ($('#searchClass').is(':focus')){
+          var className = $('#searchClass').val();
+
+          if (className != ""){
+            var whichClass = dictClassId[className];
+            clearNodeEdge();
+            putInfo(whichClass);
+            force.start();
+            update();
+          }
+
         }
       }
 
