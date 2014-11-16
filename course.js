@@ -485,6 +485,9 @@ intializeState();
 
     $('#searchClass').attr('size', ((offSet/6)|0)-3 );
 
+    $('#compress').click(function (){
+      compress();
+    });
 
     $(document).on("keydown", function(e){
 
