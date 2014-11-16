@@ -287,8 +287,8 @@ intializeState();
       gnodes.append("text")
       .text(function(d) {
         return d.name;
-      }
-      );
+      });
+
 
       force
       .nodes(json.nodes)
@@ -324,7 +324,7 @@ intializeState();
 
       node.attr("cx", function(d) {
           d.x = Math.max( r, Math.min(offSet + w*widthCov - r, d.x)); 
-        $(this.nextSibling).attr("x",d.x);
+          $(this.nextSibling).attr("x",d.x+ r/2);
         return d.x;
         }
       )
@@ -453,16 +453,16 @@ intializeState();
     });
 
         // Overrides the default autocomplete filter function to search for matched on atleast 1 word in each of the input term's words
-    $.ui.autocomplete.filter = function (array, terms) {
-        arrayOfTerms = terms.split(" ");
-        var term = $.map(arrayOfTerms, function (tm) {
-             return $.ui.autocomplete.escapeRegex(tm);
-        }).join('|');
-       var matcher = new RegExp("\\b" + term, "i");
-        return $.grep(array, function (value) {
-           return matcher.test(value.label || value.value || value);
-        });
-    };
+    // $.ui.autocomplete.filter = function (array, terms) {
+    //     arrayOfTerms = terms.split(" ");
+    //     var term = $.map(arrayOfTerms, function (tm) {
+    //          return $.ui.autocomplete.escapeRegex(tm);
+    //     }).join('|');
+    //    var matcher = new RegExp("\\b" + term, "i");
+    //     return $.grep(array, function (value) {
+    //        return matcher.test(value.label || value.value || value);
+    //     });
+    // };
 
 
     $(document).ready(function(){
