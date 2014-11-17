@@ -68,7 +68,7 @@ intializeState();
 
     function cleanState(){
       visited = visited.map(function(d){
-        if (d == Infinity) return 1;
+        if (d == Infinity) return Infinity;
         else return -1;
       });
     }
