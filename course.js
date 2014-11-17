@@ -196,7 +196,7 @@ intializeState();
     // Get names and index
     function getNames(){
       for (var i = 0; i < allData.nodes.length; i++) {
-        dictClassId[allData.nodes[i].name] = allData.nodes[i].cid;
+        dictClassId[allData.nodes[i].code+" "+allData.nodes[i].name] = allData.nodes[i].cid;
       };
       return Object.keys(dictClassId);
     }
