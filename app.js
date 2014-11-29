@@ -42,5 +42,6 @@ app.get("*", function(request,response){
 	response.redirect('/');
 });
 
-app.listen(5000);
-console.log('Express started on port 5000');
+var port = process.env.PORT || 3000;
+app.listen(port);
+console.log('Express started on port' + port);
