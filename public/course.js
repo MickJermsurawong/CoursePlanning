@@ -674,9 +674,13 @@ function floyd(m){
     d3.json("data.json", function(jsonData) {
     allData = jsonData;
     
-    putInfo(85);
-    force.start();
-    update();
+    loadClass();
+    // console.log("load this");
+    // console.log(loadedData);
+    // var theseClasses = loadedData.myclasses;
+    // console.log(theseClasses);
+    // newComp = theseClasses;
+
 
    
     $("#searchClass").autocomplete({
@@ -775,9 +779,14 @@ function floyd(m){
         success: function(resp){
           console.log('WooHoo!');
           console.log(resp);
+          loadedInfo = resp;
+          newComp = resp.myclasses;
+          putInfo(-1);
+          force.start();
+          update();
         }
       });
-      console.log("herr");
+
     };
 
 
