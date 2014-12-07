@@ -21,6 +21,14 @@
     }
   }
 
+  function getID(){
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        return response.authResponse.userID;
+    }
+  })
+  };
+
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
@@ -693,8 +701,10 @@ function floyd(m){
     //     });
     // };
 
-    function saveClass(userID, major, myclasses, wavedclasses){
-      userID = "10152600780793406";
+    function saveClass(major, myclasses, wavedclasses){
+
+
+      var userID = getID();
       // userID = "10152600780793409";
       obj = {
         _id: userID,
@@ -720,13 +730,14 @@ function floyd(m){
 
     };
 
-    function updateClass(userID, major, myclasses, wavedclasses){
+    function updateClass(major, myclasses, wavedclasses){
       // var userID = "10152600780793406";
       // userID = "10152600780793409";
+      var userID = getID();
       var obj = {
         _id: userID,
         major: [],
-        myclasses: [],
+        myclasses: newComp,
         wavedclasses: []
       };
       console.log(obj);
@@ -747,9 +758,10 @@ function floyd(m){
 
     };
 
-    function loadClass(userID){
+    function loadClass(){
       // var userID = "10152600780793406";
-
+      var userID = getID();
+      console.log("sendAjax");
       $.ajax({
         url: '/loadClass/'+userID,
         type: 'GET',
@@ -763,6 +775,7 @@ function floyd(m){
           console.log(resp);
         }
       });
+      console.log("herr");
     };
 
 
