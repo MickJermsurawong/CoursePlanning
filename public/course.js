@@ -733,7 +733,9 @@ function floyd(m){
     function updateClass(major, myclasses, wavedclasses){
       // var userID = "10152600780793406";
       // userID = "10152600780793409";
-      var userID = getID();
+      // var userID = getID();
+      var userID = "10152600780793406";
+
       var obj = {
         _id: userID,
         major: [],
@@ -759,8 +761,8 @@ function floyd(m){
     };
 
     function loadClass(){
-      // var userID = "10152600780793406";
-      var userID = getID();
+      var userID = "10152600780793406";
+      // var userID = getID();
       console.log("sendAjax");
       $.ajax({
         url: '/loadClass/'+userID,
