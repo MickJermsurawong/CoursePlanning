@@ -354,7 +354,7 @@ function floyd(m){
         document.getElementById('status').innerHTML = 
         allData.nodes[classIndex].name  +' is added!';
         $('#status').show();
-        setTimeout("jQuery('#status').hide();",3000);
+        setTimeout("jQuery('#status').hide();",7000);
       }
       var thisLinks = getObj();
       var thisNodes = [];
@@ -681,7 +681,7 @@ function floyd(m){
           document.getElementById('status').innerHTML = 
           'Saving ' + newComp.length + ' classes!';
           $('#status').show();
-          setTimeout("jQuery('#status').hide();",3000);
+          setTimeout("jQuery('#status').hide();",7000);
           var userID= response.authResponse.userID;
           var groupsClass = node.data().map(function(d){return d.group;}); 
           console.log(groupsClass);
@@ -707,7 +707,7 @@ function floyd(m){
               document.getElementById('status').innerHTML =
               'Saved ' + obj.myclasses.length + ' classes!';
               $('#status').show();
-              setTimeout("jQuery('#status').hide();",3000);
+              setTimeout("jQuery('#status').hide();",7000);
             }
           });
         }
@@ -715,7 +715,7 @@ function floyd(m){
         document.getElementById('status').innerHTML = 
         'Please log into Facebook to save your classes.';
         $('#status').show();
-        setTimeout("jQuery('#status').hide();",3000);
+        setTimeout("jQuery('#status').hide();",7000);
 
       }
       });
@@ -732,7 +732,7 @@ function floyd(m){
             document.getElementById('status').innerHTML =
             'Loading your classes ...';
             $('#status').show();
-            setTimeout("jQuery('#status').hide();",3000);
+            setTimeout("jQuery('#status').hide();",7000);
             clearNodeEdge();
             var userID= response.authResponse.userID;
 
@@ -755,7 +755,7 @@ function floyd(m){
                   document.getElementById('status').innerHTML =
                   'You do not have any classes saved. First, add classes from the search box.';
                   $('#status').show();
-                  setTimeout("jQuery('#status').hide();",3000);
+                  setTimeout("jQuery('#status').hide();",7000);
                 }
                 else{
                   newComp = resp.myclasses;
@@ -769,7 +769,7 @@ function floyd(m){
                     document.getElementById('status').innerHTML =
                     'Loaded ' + newComp.length + ' classes!';
                     $('#status').show();
-                    setTimeout("jQuery('#status').hide();",3000);
+                    setTimeout("jQuery('#status').hide();",7000);
                   }
                   if (resp.groups.length !== 0) putInfo(-1,resp.groups);
                   else putInfo(-1);
@@ -784,7 +784,7 @@ function floyd(m){
           document.getElementById('status').innerHTML = 
           'Please log into Facebook to load your classes. But try out classes from the search box.';
           $('#status').show();
-          setTimeout("jQuery('#status').hide();",3000);
+
           newComp = toyComp;
           putInfo(-1);
           force.start();
