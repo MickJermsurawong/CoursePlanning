@@ -92,7 +92,10 @@ var w = $(window).width(),
     h = $(window).height(),
     r = w*0.014,
     z = d3.scale.category10();
-    dragEle = false;
+    dragEle = false,
+    prevPos = 0,
+    dir = 1,
+    currentIsRoot = 0;
 
 // graph-related
 var source;
@@ -109,6 +112,8 @@ var checkColumn = [];
 var dictClassId = {};
 var classType = {};
 intializeState();
+
+
 
 function convertToAdjMat(adjList){
   var row;
@@ -243,19 +248,48 @@ function floyd(m){
         source.push(thisLink.source.group);
         target.push(thisLink.target.group);
       }
+      currentIsRoot = isBasicClass(d.index);
     }
 
     function dragged(d) {
       dragEle = true;
       d.group = whichBox(d);
+      dir = 1;
+      if (prevPos > d.x) dir *= -1;
+      prevPos = d.x;
       var valid = update();
-      console.log(d.group);
       this.classList.add("dragging");
     }
 
+
     function update(){
 
+      if ((dir === -1) && dragEle){
+        var valid = 1;
+        for (var i = 0; i < link.data().length; i++) {
+          var thisLink = link.data()[i];
+          if (thisLink.source.group === thisLink.target.group) thisLink.target.group = thisLink.target.group-1;
+          if (thisLink.target.group === 0){
+            valid = 0;
+          }
+        }
+        // if we are not deleting it - not the basic class..
+        if (currentIsRoot === 0){
+          // put it back to previous place
+          if ((valid == 0) && (source.length == link.data().length)){
+            for (var i = 0; i < link.data().length; i++) {
+              var thisLink = link.data()[i];
+              // console.log(thisLink);
+              thisLink.source.group = source[i];
+              thisLink.target.group = target[i];
+            }
+          }
+        }
+        return;
+      }
+
       var valid = 1;
+
 
       for (var i = 0; i < link.data().length; i++) {
         var thisLink = link.data()[i];
@@ -266,8 +300,6 @@ function floyd(m){
       }
       if ((valid == 0) && (source.length == link.data().length)){
         console.log("invalidd");
-        console.log(source);
-        console.log(target);
         for (var i = 0; i < link.data().length; i++) {
           var thisLink = link.data()[i];
           // console.log(thisLink);
@@ -284,7 +316,10 @@ function floyd(m){
         putInfo(-1);
 
       }
+
       return valid;
+      
+
     }
 
     function dragended(d) {
@@ -299,6 +334,7 @@ function floyd(m){
           d.group = 1;
         }
       }
+      update();
     }
 
     //Check state classes
@@ -337,6 +373,19 @@ function floyd(m){
       .data([])
       .exit()
       .remove();
+    }
+
+    function isBasicClass(indexNode){
+
+      var subRevAdj = getSubRevAdj();
+      var root = 1;
+      for (var i = 0; i < subRevAdj.length; i++) {
+        for (var j = 0; j < subRevAdj[i].child.length; j++) {
+          if (subRevAdj[indexNode].cid == subRevAdj[i].child[j].cid)
+            root = 0;
+        }
+      }
+      return root;
     }
 
     // disconnect()
@@ -381,7 +430,6 @@ function floyd(m){
       for (var i = 0; i < newComp.length; i++) {
         var thisNode = allData.nodes[newComp[i]];
         thisNodes.push(thisNode);
-        console.log(thisNode.code.split("-")[0]);
         if (classType.hasOwnProperty(thisNode.code.split("-")[0])){
           thisNode.classTypeIndex = classType[thisNode.code.split("-")[0]];
         }
@@ -428,7 +476,6 @@ function floyd(m){
         gnodes.data()[specializedIndex[i]].classTypeIndex*= -1;
       };
 
-      console.log(specializedIndex);
       node = gnodes.append("circle")
       .attr("class", "node")
       .attr("r", r - .75)
@@ -478,13 +525,11 @@ function floyd(m){
       var n = node.data().length;
       var row;
       var mat = [];
-      console.log("n#:"+n);
       for (var i = 0; i < n; i++) {
         row = [];
         for (var j = 0; j < n; j++) {
           row.push(Infinity);
         }
-        console.log(row);
         mat.push(row);
       }
 
@@ -502,12 +547,9 @@ function floyd(m){
 
       var checkRoots = gnodes.data().map(function(d){return 0;});
       var theseLinks = link.data();
-      console.log(theseLinks);
       for (var i = 0; i < theseLinks.length; i++) {
-        console.log(theseLinks[i]);
         checkRoots[theseLinks[i].target]++;
       }
-      console.log(checkRoots);
       checkRoots = checkRoots.map(function(d,i) {
         if (d===0) return i;
         else return - 1;
@@ -531,7 +573,7 @@ function floyd(m){
       }
 
 
-      var kx = .4 * e.alpha, ky = .2 * e.alpha;
+      var kx = 1 * e.alpha, ky = .2 * e.alpha;
 
       // for x direction
       for (var i = 0; i < theseNodes.length; i++) {
@@ -545,8 +587,7 @@ function floyd(m){
         var mult = 3;
         var sign = ((countEdgeIn[theseLinks[i].source.index]++) %2);
         if (sign != 0) mult*=-1;
-        mult *= (countEdgeIn[theseLinks[i].source.index]/2)|0 +1;
-        
+        mult *= ((countEdgeIn[theseLinks[i].source.index]/2)|0)+1;
         theseLinks[i].target.y += (theseLinks[i].source.y +mult*r - theseLinks[i].target.y) *ky;
       };
 
@@ -656,17 +697,6 @@ function floyd(m){
       .attr("fill", "rgba(32,32,32,.3)")
       .style("text-anchor" ,"middle");
     }
-
-
-    // var explain = ["Add: Search box", "Delete: Double-click and backspace", "Waive: Drag to the left"];
-    // for (var i = 0; i < explain.length; i++) {
-    //   verColumnsCon.append("svg:text")
-    //   .text(explain[i])
-    //   .attr("x", w*widthCov+ offSet/4)
-    //   .attr("y", h/3+ (10)*i)
-    //   .attr("fill", "rgba(32,32,32,.3)");
-    // }
-
 
     var link, gnodes, node;
     var allData;
