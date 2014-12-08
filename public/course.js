@@ -94,6 +94,7 @@ var w = $(window).width(),
     z = d3.scale.category10();
     dragEle = false,
     prevPos = 0,
+    originPos = 0,
     dir = 1,
     currentIsRoot = 0;
 
@@ -249,6 +250,7 @@ function floyd(m){
         target.push(thisLink.target.group);
       }
       currentIsRoot = isBasicClass(d.index);
+      originPos = d.x;
     }
 
     function dragged(d) {
@@ -257,22 +259,19 @@ function floyd(m){
       dir = 1;
       if (prevPos > d.x) dir = -1;
       prevPos = d.x;
-      var valid = update();
+      if (dir == -1) updateLeft();
+      else update();
+      // var valid = update();
       this.classList.add("dragging");
     }
 
-
-    function update(){
-
-      var valid = 1;
-
-      if ((dir === -1) && dragEle){
-        console.log("drag left");
+    function updateLeft(){
+        var valid = 1;
         var thisLink;
         for (var i = 0; i < link.data().length; i++) {
           thisLink = link.data()[i];
 
-          if (thisLink.source.group === thisLink.target.group) {
+          if (thisLink.source.group <= thisLink.target.group) {
             console.log("group equal");
             thisLink.target.group = thisLink.source.group-1;
           }
@@ -292,12 +291,13 @@ function floyd(m){
             }
           }
         }
-        return;
-      }
+      return;
+
+    }
+
+    function update(){
 
       var valid = 1;
-
-
       for (var i = 0; i < link.data().length; i++) {
         var thisLink = link.data()[i];
         if (thisLink.source.group <= thisLink.target.group) thisLink.source.group = thisLink.target.group+1;
@@ -341,7 +341,17 @@ function floyd(m){
           d.group = 1;
         }
       }
-      update();
+
+      dir = 1;
+      if (originPos > d.x) dir = -1;
+      originPos = d.x;
+      console.log("end")
+      if (dir == -1) {
+        console.log("updateleft");
+        updateLeft();
+      }
+      else update();
+      force.resume();
     }
 
     //Check state classes
@@ -636,7 +646,8 @@ function floyd(m){
     var force = d3.layout.force()
     .gravity(0)
     .charge(0)
-    .linkStrength(0);
+    .linkStrength(0)
+    .alpha(30);
 
     var drag = force.drag()
         .on("dragstart", dragstarted)
