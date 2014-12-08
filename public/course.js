@@ -654,12 +654,14 @@ function floyd(m){
       }
 
       function getID(){
+        var userID;
         FB.getLoginStatus(function(response) {
           if (response.status === 'connected') {
             console.log(response.authResponse);
-            return response.authResponse.userID;
+            userId= response.authResponse.userID;
         }
-      })
+        });
+        return userID;
       };
 
       // This function is called when someone finishes with the Login
