@@ -268,7 +268,7 @@ function floyd(m){
     function updateLeft(){
         var valid = 1;
         var thisLink;
-        for (var i = 0; i < link.data().length; i++) {
+        for (var i = link.data().length-1; i >= 0; i--) {
           thisLink = link.data()[i];
           console.log(i);
           if (thisLink.source.group <= thisLink.target.group) {
