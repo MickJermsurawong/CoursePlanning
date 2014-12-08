@@ -270,10 +270,11 @@ function floyd(m){
         var thisLink;
         for (var i = 0; i < link.data().length; i++) {
           thisLink = link.data()[i];
-
+          console.log(i);
           if (thisLink.source.group <= thisLink.target.group) {
             console.log("group equal");
-            console.log(i+thisLink.target.name);
+            console.log(thisLink.target.name+":"+ thisLink.target.group);
+            console.log(thisLink.source.name+":"+ thisLink.source.group);
             thisLink.target.group = thisLink.source.group-1;
           }
           if (thisLink.target.group <= 0){
