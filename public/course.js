@@ -1,93 +1,3 @@
-  function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      testAPI();
-      console.log(response.authResponse.userID);
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
-    }
-  }
-
-  function getID(){
-    FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        return response.authResponse.userID;
-    }
-  })
-  };
-
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '651796521604323',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.1' // use version 2.1
-  });
-
-  // Now that we've initialized the JavaScript SDK, we call 
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
-    });
-  }
-
-////////////////// FACEBOOK LOGIN STUFF///////////////////
-
-
 var w = $(window).width(),
     h = $(window).height(),
     r = w*0.014,
@@ -718,40 +628,96 @@ function floyd(m){
     var graph;
 
 
+    $(document).ready(function(){
 
-    d3.json("data.json", function(jsonData) {
-    allData = jsonData;
-    
-    loadClass();
-    // console.log("load this");
-    // console.log(loadedData);
-    // var theseClasses = loadedData.myclasses;
-    // console.log(theseClasses);
-    // newComp = theseClasses;
+      function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+          // Logged into your app and Facebook.
+          testAPI();
+          console.log(response.authResponse.userID);
+        } else if (response.status === 'not_authorized') {
+          // The person is logged into Facebook, but not your app.
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        } else {
+          // The person is not logged into Facebook, so we're not sure if
+          // they are logged into this app or not.
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into Facebook.';
+        }
+      }
 
+      function getID(){
+        FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            return response.authResponse.userID;
+        }
+      })
+      };
 
-   
-    $("#searchClass").autocomplete({
-        source: getNames(),
-        multiple: true,
-        mustMatch: false,
+      // This function is called when someone finishes with the Login
+      // Button.  See the onlogin handler attached to it in the sample
+      // code below.
+      function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      }
 
-    });
+      window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '651796521604323',
+        cookie     : true,  // enable cookies to allow the server to access 
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.1' // use version 2.1
+      });
 
-    
-    });
+      // Now that we've initialized the JavaScript SDK, we call 
+      // FB.getLoginStatus().  This function gets the state of the
+      // person visiting this page and can return one of three states to
+      // the callback you provide.  They can be:
+      //
+      // 1. Logged into your app ('connected')
+      // 2. Logged into Facebook, but not your app ('not_authorized')
+      // 3. Not logged into Facebook and can't tell if they are logged into
+      //    your app or not.
+      //
+      // These three cases are handled in the callback function.
 
-        // Overrides the default autocomplete filter function to search for matched on atleast 1 word in each of the input term's words
-    // $.ui.autocomplete.filter = function (array, terms) {
-    //     arrayOfTerms = terms.split(" ");
-    //     var term = $.map(arrayOfTerms, function (tm) {
-    //          return $.ui.autocomplete.escapeRegex(tm);
-    //     }).join('|');
-    //    var matcher = new RegExp("\\b" + term, "i");
-    //     return $.grep(array, function (value) {
-    //        return matcher.test(value.label || value.value || value);
-    //     });
-    // };
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+
+      };
+
+      // Load the SDK asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      // Here we run a very simple test of the Graph API after login is
+      // successful.  See statusChangeCallback() for when this call is made.
+      function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+          console.log('Successful login for: ' + response.name);
+          document.getElementById('status').innerHTML =
+            'Thanks for logging in, ' + response.name + '!';
+        });
+      }
+
+    ////////////////// FACEBOOK LOGIN STUFF///////////////////
 
     function saveClass(major, myclasses, wavedclasses){
 
@@ -787,7 +753,6 @@ function floyd(m){
       // userID = "10152600780793409";
       var userID = getID();
       // var userID = "10152600780793406";
-
       var obj = {
         _id: userID,
         major: [],
@@ -848,12 +813,16 @@ function floyd(m){
 
     };
 
+    d3.json("data.json", function(jsonData) {
+    allData = jsonData;
 
+    $("#searchClass").autocomplete({
+        source: getNames(),
+        multiple: true,
+        mustMatch: false,
 
-
-
-    $(document).ready(function(){
-      //<option value="v1">First option, index 0</option> 
+    });
+    });
 
 
     $("#submitButton").click(function (e) {
@@ -874,7 +843,7 @@ function floyd(m){
     $('#searchClass').attr('size', ((offSet/6)|0)-3 );
 
     $('#compress').click(function (){
-      compress();
+      loadClass();
     });
 
     $(document).on("keydown", function(e){
