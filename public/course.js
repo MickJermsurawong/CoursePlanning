@@ -15,7 +15,8 @@ var revAdj = [ [],   [],   [],   [ 601 ],   [],   [],   [],   [],   [],   [],   
 var adjList = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [44], [], [45], [47], [48], [48], [46], [48], [52], [53, 49], [48], [], [], [], [898, 899, 902, 903, 900, 901], [59], [898, 899, 902, 903, 900, 901], [898, 899, 902, 903, 900, 901], [59], [59], [898, 899, 902, 903, 900, 901], [898, 899, 902, 903, 900, 901], [66, 59], [898, 899, 902, 903, 900, 901, 59], [604, 605, 898, 899, 902, 903, 900, 901], [606, 60], [898, 899, 902, 903, 900, 901, 59], [], [59], [], [], [], [], [], [], [], [], [], [], [], [898, 899, 900, 901], [85], [898, 899, 902, 903, 606, 900, 901], [898, 899, 902, 903, 606, 900, 901], [87, 88], [85, 87, 88, 86], [86], [85], [92], [92], [85, 88, 93, 86], [85, 86], [85, 86], [898, 899, 902, 903, 85, 900, 901], [], [], [], [], [], [103], [104], [105], [106], [107], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [299], [302, 300], [609], [301, 302], [], [162], [305, 162, 304], [162], [], [305, 162, 304], [302, 392], [302, 300], [301, 302], [301, 302], [302, 300], [301, 302], [302, 300], [301, 302], [302, 300], [301], [301, 302, 610], [], [302, 300], [], [], [], [302], [], [327], [328, 327], [331, 328, 327], [604, 605, 910, 327], [], [911, 913], [], [], [327], [], [], [299, 327], [], [], [], [], [330], [328, 327], [911, 913, 327], [355, 346], [331], [913, 327, 333, 916], [913, 328, 327, 349, 916], [], [346], [604, 605, 331, 910], [331], [346], [331], [328, 327], [604, 605, 331, 910], [], [], [], [], [], [], [], [], [], [], [], [], [], [604, 605, 898, 899], [604, 605, 898, 899], [], [], [380], [604, 605, 299], [], [], [], [898, 899, 900, 901], [604, 605, 383], [606], [604, 605], [], [374], [], [382], [387], [386], [389], [389, 390], [389], [380], [388], [380], [], [373], [608, 403], [373], [398, 400], [372], [604, 605, 372], [299], [299], [], [], [], [604, 605], [606], [], [389], [607], [299], [394, 386], [299], [386, 387], [376], [], [388], [299], [387, 382], [401], [402], [402], [425], [426], [426], [398], [429], [608, 398, 402], [398, 402], [432], [], [434], [398], [376], [], [], [], [376], [388], [], [], [954], [954, 445], [], [], [], [], [], [], [447], [], [], [], [], [], [], [], [], [], [], [447, 450], [447], [], [], [], [], [], [447], [], [453], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [464], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [549], [549, 551], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [574], [], [3], [], [602], [603], [], [604, 605], [604, 605], [606], [604, 605], [606], [607], [611], [302], [608, 607], [606, 607], [606], [606, 607], [607], [608], [608, 607], [606, 607], [604, 605], [622], [], [], [], [622], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [642], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [667], [], [], [], [], [], [], [], [], [], [669], [667], [], [], [], [], [], [673, 670], [], [], [], [], [], [], [], [], [], [], [], [], [687], [670], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [726], [], [726], [], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [1032], [733], [1033], [1033], [1033], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [711], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [604, 605, 898, 899], [909], [898, 899, 902, 903, 608, 900, 901, 607], [898, 899, 902, 903, 606, 900, 901], [898, 899, 902, 903, 900, 901, 607], [898, 899, 902, 903, 900, 901], [813], [813], [813], [898, 899, 902, 903, 608, 900, 901], [815], [813], [], [], [], [], [604, 605, 910], [825], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [830], [], [], [], [], [853], [853], [853], [], [], [], [853, 868, 333], [], [], [], [911], [], [], [], [911, 610, 913], [], [], [], [], [], [], [872], [872], [872], [872], [872], [872], [872], [], [872, 911, 873, 913, 874], [872, 873], [872, 873], [872, 873], [872, 873], [872, 873], [872, 873], [872], [872, 873], [872, 873], [911, 610, 913], [872, 873], [], [], [], [604, 605], [898], [899], [900], [901], [902], [], [], [], [], [], [], [], [], [], [604, 605, 910], [], [], [604, 605, 910], [912], [], [], [], [], [], [], [], [], [], [911, 610, 912, 913], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [911], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [957, 958], [971], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [1010], [991, 992, 993], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
 var instructRevAdj = [[1038], [1038], [1039], [1039], [1039], [], [1041], [1042], [1043], [], [1043]];
 var instructAdjList = [[], [], [], [], [1034, 1035], [1036, 1037, 1038], [], [1040], [1041], [1042, 1044], []];
-var instructData = {"nodes": [{"code": "MATH-AD", "group": 5, "name": "Waive basic class", "cid": 1034}, {"code": "MATH-AD", "group": 5, "name": "TRY! Drag to the left to waive", "cid": 1035}, {"code": "ECON-AD", "group": 11, "name": "TRY! Push forward", "cid": 1036}, {"code": "ECON-AD", "group": 8, "name": "Pre-req", "cid": 1037}, {"code": "ECON-AD", "group": 8, "name": "Pre-req", "cid": 1038}, {"code": "ECON-AD", "group": 14, "name": "TRY! Move around advanced class", "cid": 1039}, {"code": "CS-AD", "group": 8, "name": "TRY! Double-click and delete/backspace", "cid": 1040}, {"code": "CS-AD", "group": 11, "name": "Remove class sequence", "cid": 1041}, {"code": "CS-AD", "group": 14, "name": "advanced", "cid": 1042}, {"code": "CS-AD", "group": 17, "name": "advanced", "cid": 1043}, {"code": "CS-AD", "group": 20, "name": "advanced", "cid": 1044}], "links": [{"source": 1038, "target": 1034, "value": 0}, {"source": 1038, "target": 1035, "value": 0}, {"source": 1039, "target": 1036, "value": 0}, {"source": 1039, "target": 1037, "value": 0}, {"source": 1039, "target": 1038, "value": 0}, {"source": 1041, "target": 1040, "value": 0}, {"source": 1042, "target": 1041, "value": 0}, {"source": 1043, "target": 1042, "value": 0}, {"source": 1043, "target": 1044, "value": 0}]};
+var toyComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+var instructData = {"nodes": [{"code": "MATH-AD", "group": 5, "name": "TRY! Waive this basic class too", "cid": 1034}, {"code": "MATH-AD", "group": 5, "name": "TRY! Drag to the left to waive", "cid": 1035}, {"code": "ECON-AD", "group": 11, "name": "TRY! Push forward", "cid": 1036}, {"code": "ECON-AD", "group": 8, "name": "Pre-req", "cid": 1037}, {"code": "ECON-AD", "group": 8, "name": "Pre-req", "cid": 1038}, {"code": "ECON-AD", "group": 14, "name": "TRY! Move around advanced class", "cid": 1039}, {"code": "CS-AD", "group": 8, "name": "Pre-req", "cid": 1040}, {"code": "CS-AD", "group": 11, "name": "TRY! Double-click and delete/backspace to remove a class sequence", "cid": 1041}, {"code": "CS-AD", "group": 14, "name": "advanced", "cid": 1042}, {"code": "CS-AD", "group": 17, "name": "advanced", "cid": 1043}, {"code": "CS-AD", "group": 20, "name": "advanced", "cid": 1044}], "links": [{"source": 1038, "target": 1034, "value": 0}, {"source": 1038, "target": 1035, "value": 0}, {"source": 1039, "target": 1036, "value": 0}, {"source": 1039, "target": 1037, "value": 0}, {"source": 1039, "target": 1038, "value": 0}, {"source": 1041, "target": 1040, "value": 0}, {"source": 1042, "target": 1041, "value": 0}, {"source": 1043, "target": 1042, "value": 0}, {"source": 1043, "target": 1044, "value": 0}]};
 var newComp = [];
 var oldComp = [];
 var visited = [];
@@ -639,92 +640,13 @@ function floyd(m){
 
     $(document).ready(function(){
 
-      function statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        console.log(response);
-        // The response object is returned with a status field that lets the
-        // app know the current login status of the person.
-        // Full docs on the response object can be found in the documentation
-        // for FB.getLoginStatus().
-        if (response.status === 'connected') {
-          // Logged into your app and Facebook.
-          testAPI();
-          console.log(response.authResponse.userID);
-        } else if (response.status === 'not_authorized') {
-          // The person is logged into Facebook, but not your app.
-          document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
-        } else {
-          // The person is not logged into Facebook, so we're not sure if
-          // they are logged into this app or not.
-          document.getElementById('status').innerHTML = 'Please log ' +
-            'into Facebook.';
-        }
-      }
-
-
-
-      // This function is called when someone finishes with the Login
-      // Button.  See the onlogin handler attached to it in the sample
-      // code below.
-      function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-          statusChangeCallback(response);
-        });
-      }
-
-      window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '651796521604323',
-        cookie     : true,  // enable cookies to allow the server to access 
-                            // the session
-        xfbml      : true,  // parse social plugins on this page
-        version    : 'v2.1' // use version 2.1
-      });
-
-      // Now that we've initialized the JavaScript SDK, we call 
-      // FB.getLoginStatus().  This function gets the state of the
-      // person visiting this page and can return one of three states to
-      // the callback you provide.  They can be:
-      //
-      // 1. Logged into your app ('connected')
-      // 2. Logged into Facebook, but not your app ('not_authorized')
-      // 3. Not logged into Facebook and can't tell if they are logged into
-      //    your app or not.
-      //
-      // These three cases are handled in the callback function.
-
-      FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-      });
-
-      };
-
-      // Load the SDK asynchronously
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-
-      // Here we run a very simple test of the Graph API after login is
-      // successful.  See statusChangeCallback() for when this call is made.
-      function testAPI() {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
-          console.log('Successful login for: ' + response.name);
-          document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
-        });
-      }
-
-    ////////////////// FACEBOOK LOGIN STUFF///////////////////
+ 
 
     function saveClass(userID, major, myclasses, wavedclasses){
 
       // userID = "10152600780793409";
+
+
       obj = {
         _id: userID,
         major: [],
@@ -754,6 +676,8 @@ function floyd(m){
 
       FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
+          document.getElementById('status').innerHTML = 
+          'Saving ' + newComp.length + ' classes!';
           var userID= response.authResponse.userID;
           var groupsClass = node.data().map(function(d){return d.group;}); 
           console.log(groupsClass);
@@ -776,11 +700,15 @@ function floyd(m){
             },
             success: function(resp){
               console.log('WooHoo!');
-              console.log(resp);
-              console.log(obj);
+              document.getElementById('status').innerHTML =
+              'Saved ' + obj.myclasses.length + ' classes!';
             }
           });
         }
+      else{
+        document.getElementById('status').innerHTML = 
+        'Please log into Facebook to save your classes.';
+      }
       });
         
     };
@@ -788,15 +716,15 @@ function floyd(m){
 
     function loadClass(){
 
-      clearNodeEdge();
+
 
       FB.getLoginStatus(function(response) {
           if (response.status === 'connected') {
+            document.getElementById('status').innerHTML =
+            'Loading your classes ...';
+            clearNodeEdge();
             var userID= response.authResponse.userID;
-            allData.nodes = (allData.nodes).concat(instructData.nodes);
-            allData.links = (allData.links).concat(instructData.links);
-            revAdj = revAdj.concat(instructRevAdj);
-            adjList = adjList.concat(instructAdjList);
+
 
             console.log("sendAjax");
             $.ajax({
@@ -811,13 +739,23 @@ function floyd(m){
                 console.log(resp.error);
                 if (resp.error === "not_found"){
                   saveClass(userID,0,0,0); //args not needed yet
-                  newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+                  newComp = toyComp;
                   putInfo(-1)
+                  document.getElementById('status').innerHTML =
+                  'You have not chosen any classes. Here\'s how to play with these classes.';
                 }
                 else{
                   newComp = resp.myclasses;
                   console.log(resp);
-                  if (newComp.length == 0) newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+                  if (newComp.length == 0) {
+                    document.getElementById('status').innerHTML =
+                    'You have not chosen any classes. Here\'s how to play with these classes.';
+                    newComp = toyComp;
+                  }
+                  else{
+                    document.getElementById('status').innerHTML =
+                    'Loaded ' + newComp.length + ' classes!';
+                  }
                   if (resp.groups.length !== 0) putInfo(-1,resp.groups);
                   else putInfo(-1);
                 }
@@ -825,6 +763,14 @@ function floyd(m){
                 update();
               }
             });
+        }
+        else{
+
+          document.getElementById('status').innerHTML = 
+          'Please log into Facebook to load your classes. But here\'s how to play with these classes.';
+          newComp = toyComp;
+          putInfo(-1);
+          force.start();
         }
       });
       
@@ -840,7 +786,21 @@ function floyd(m){
         mustMatch: false,
 
     });
+
+    allData.nodes = (allData.nodes).concat(instructData.nodes);
+    allData.links = (allData.links).concat(instructData.links);
+    revAdj = revAdj.concat(instructRevAdj);
+    adjList = adjList.concat(instructAdjList);
+
+    newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+    putInfo(-1);
+    force.start();
+
     });
+
+
+
+
 
 
     $("#submitButton").click(function (e) {
