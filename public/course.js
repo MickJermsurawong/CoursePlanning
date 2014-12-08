@@ -785,8 +785,8 @@ function floyd(m){
     function updateClass(major, myclasses, wavedclasses){
       // var userID = "10152600780793406";
       // userID = "10152600780793409";
-      // var userID = getID();
-      var userID = "10152600780793406";
+      var userID = getID();
+      // var userID = "10152600780793406";
 
       var obj = {
         _id: userID,
@@ -813,14 +813,13 @@ function floyd(m){
     };
 
     function loadClass(){
-      var userID = "10152600780793405";
 
       allData.nodes = (allData.nodes).concat(instructData.nodes);
       allData.links = (allData.links).concat(instructData.links);
       revAdj = revAdj.concat(instructRevAdj);
       adjList = adjList.concat(instructAdjList);
 
-      // var userID = getID();
+      var userID = getID();
       console.log("sendAjax");
       $.ajax({
         url: '/loadClass/'+userID,
@@ -833,10 +832,13 @@ function floyd(m){
         success: function(resp){
           console.log(resp.error);
           if (resp.error === "not_found"){
+            saveClass(0,0,0); //args not needed yet
             newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+
           }
           else{
             newComp = resp.myclasses;
+            if (newComp.length == 0) newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
           }
           putInfo(-1);
           force.start();
