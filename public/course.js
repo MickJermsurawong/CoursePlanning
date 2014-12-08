@@ -270,9 +270,7 @@ function floyd(m){
         var thisLink;
         for (var i = link.data().length-1; i >= 0; i--) {
           thisLink = link.data()[i];
-          console.log(i);
           if (thisLink.source.group <= thisLink.target.group) {
-            console.log("group equal");
             console.log(thisLink.target.name+":"+ thisLink.target.group);
             console.log(thisLink.source.name+":"+ thisLink.source.group);
             thisLink.target.group = thisLink.source.group-1;
@@ -287,7 +285,6 @@ function floyd(m){
           if ((valid == 0) && (source.length == link.data().length)){
             for (var i = 0; i < link.data().length; i++) {
               var thisLink = link.data()[i];
-              // console.log(thisLink);
               thisLink.source.group = source[i];
               thisLink.target.group = target[i];
             }
@@ -318,7 +315,6 @@ function floyd(m){
       }
       else if (((valid == 0) && (source.length != link.data().length))){
         // adding of new edges to exceed
-        console.log("cannot add more");
         cleanState();
         newComp = oldComp;
         clearNodeEdge();
@@ -648,8 +644,7 @@ function floyd(m){
     var force = d3.layout.force()
     .gravity(0)
     .charge(0)
-    .linkStrength(0)
-    .alpha(30);
+    .linkStrength(0);
 
     var drag = force.drag()
         .on("dragstart", dragstarted)
@@ -894,6 +889,7 @@ function floyd(m){
       if (e.keyCode == 13){
         if ($('#searchClass').is(':focus')){
           var className = $('#searchClass').val();
+          $("#searchClass").val("");
 
           if (className != ""){
             var whichClass = dictClassId[className];
