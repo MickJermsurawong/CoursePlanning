@@ -96,6 +96,7 @@ app.post("/updateClass", function (request, response) {
 	}, function (error, response1,body){
 		var myClasses = JSON.parse(body);
 		myClasses.myclasses = data.myclasses;
+		myClasses.groups = data.groups;
 		console.log("get data to be modifed");
 		console.log(myClasses)
 		Request.put({

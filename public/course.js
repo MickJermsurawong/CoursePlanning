@@ -139,6 +139,8 @@ function floyd(m){
           }
         }
       }
+      console.log("in getObj");
+      console.log(thisLinks);
       return thisLinks;
     }
 
@@ -343,15 +345,18 @@ function floyd(m){
     }
 
     // Put the class
-    function putInfo(classIndex){
+    function putInfo(classIndex, groups){
 
       oldComp = newComp.map(function(d){return d;});
       if (classIndex != -1){
         getConnectedComp(classIndex);
       }
       var thisLinks = getObj();
+      console.log("getObj");
+      console.log(thisLinks);
       var thisNodes = [];
 
+      // get dicitonary of classes
       for (var i = 0; i < newComp.length; i++) {
         var thisNode = allData.nodes[newComp[i]];
         thisNodes.push(thisNode);
@@ -362,14 +367,18 @@ function floyd(m){
           thisNode.classTypeIndex = Object.keys(classType).length+1;
           classType[thisNode.code.split("-")[0]] = thisNode.classTypeIndex;
         }
-
       };
 
-
+      // if during load the groups argument is passed
+      if (groups !== undefined){
+        for (var i = 0; i < groups.length; i++) {
+          thisNodes[i].group = groups[i];
+        }
+      }
 
       var json = {"nodes": thisNodes, "links": thisLinks};
 
-
+      console.log(json);
       var svgLink  = svg.append("svg:defs")
         .append("linearGradient")                
         .attr("id", "line-gradient")            
@@ -653,16 +662,7 @@ function floyd(m){
         }
       }
 
-      function getID(){
-        var userID;
-        FB.getLoginStatus(function(response) {
-          if (response.status === 'connected') {
-            console.log(response.authResponse);
-            userId= response.authResponse.userID;
-        }
-        });
-        return userID;
-      };
+
 
       // This function is called when someone finishes with the Login
       // Button.  See the onlogin handler attached to it in the sample
@@ -722,16 +722,15 @@ function floyd(m){
 
     ////////////////// FACEBOOK LOGIN STUFF///////////////////
 
-    function saveClass(major, myclasses, wavedclasses){
+    function saveClass(userID, major, myclasses, wavedclasses){
 
-
-      var userID = getID();
       // userID = "10152600780793409";
       obj = {
         _id: userID,
         major: [],
         myclasses: newComp,
-        wavedclasses: []
+        wavedclasses: [],
+        groups: [],
       };
       console.log(obj);
       $.ajax({
@@ -751,68 +750,84 @@ function floyd(m){
 
     };
 
-    function updateClass(major, myclasses, wavedclasses){
-      // var userID = "10152600780793406";
-      // userID = "10152600780793409";
-      var userID = getID();
-      // var userID = "10152600780793406";
-      var obj = {
-        _id: userID,
-        major: [],
-        myclasses: newComp,
-        wavedclasses: []
-      };
-      console.log(obj);
-      $.ajax({
-        url: '/updateClass',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(obj),
-        error: function(resp){
-          console.log("Oh no in client...");
-          console.log(resp);
-        },
-        success: function(resp){
-          console.log('WooHoo!');
-          console.log(resp);
+    function updateClass(){
+
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          var userID= response.authResponse.userID;
+          var groupsClass = node.data().map(function(d){return d.group;}); 
+          console.log(groupsClass);
+          var obj = {
+                  _id: userID,
+                  major: [],
+                  myclasses: newComp,
+                  wavedclasses: [],
+                  groups: groupsClass,
+                };
+          console.log(obj);
+          $.ajax({
+            url: '/updateClass',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(obj),
+            error: function(resp){
+              console.log("Oh no in client...");
+              console.log(resp);
+            },
+            success: function(resp){
+              console.log('WooHoo!');
+              console.log(resp);
+              console.log(obj);
+            }
+          });
         }
       });
-
+        
     };
+
 
     function loadClass(){
 
-      allData.nodes = (allData.nodes).concat(instructData.nodes);
-      allData.links = (allData.links).concat(instructData.links);
-      revAdj = revAdj.concat(instructRevAdj);
-      adjList = adjList.concat(instructAdjList);
+      clearNodeEdge();
 
-      var userID = getID();
-      console.log("sendAjax");
-      $.ajax({
-        url: '/loadClass/'+userID,
-        type: 'GET',
-        dataType: 'json',
-        error: function(resp){
-          console.log(resp);
-          alert("Oh No! Try a refresh?");
-        },
-        success: function(resp){
-          console.log(resp.error);
-          if (resp.error === "not_found"){
-            saveClass(0,0,0); //args not needed yet
-            newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+      FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            var userID= response.authResponse.userID;
+            allData.nodes = (allData.nodes).concat(instructData.nodes);
+            allData.links = (allData.links).concat(instructData.links);
+            revAdj = revAdj.concat(instructRevAdj);
+            adjList = adjList.concat(instructAdjList);
 
-          }
-          else{
-            newComp = resp.myclasses;
-            if (newComp.length == 0) newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
-          }
-          putInfo(-1);
-          force.start();
-          update();
+            console.log("sendAjax");
+            $.ajax({
+              url: '/loadClass/'+userID,
+              type: 'GET',
+              dataType: 'json',
+              error: function(resp){
+                console.log(resp);
+                alert("Oh No! Try a refresh?");
+              },
+              success: function(resp){
+                console.log(resp.error);
+                if (resp.error === "not_found"){
+                  saveClass(userID,0,0,0); //args not needed yet
+                  newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+                  putInfo(-1)
+                }
+                else{
+                  newComp = resp.myclasses;
+                  console.log(resp);
+                  if (newComp.length == 0) newComp = [1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043];
+                  if (resp.groups.length !== 0) putInfo(-1,resp.groups);
+                  else putInfo(-1);
+                }
+                force.start();
+                update();
+              }
+            });
         }
       });
+      
 
     };
 
@@ -845,9 +860,14 @@ function floyd(m){
 
     $('#searchClass').attr('size', ((offSet/6)|0)-3 );
 
-    $('#compress').click(function (){
+    $('#loadClass').click(function (){
       loadClass();
     });
+
+    $('#saveClass').click(function (){
+      updateClass();
+    });
+
 
     // $('#loadClass')
 
