@@ -273,6 +273,7 @@ function floyd(m){
 
           if (thisLink.source.group <= thisLink.target.group) {
             console.log("group equal");
+            console.log(thisLink.target.name);
             thisLink.target.group = thisLink.source.group-1;
           }
           if (thisLink.target.group <= 0){
