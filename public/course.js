@@ -274,7 +274,7 @@ function floyd(m){
 
           if (thisLink.source.group === thisLink.target.group) {
             console.log("group equal");
-            thisLink.target.group = thisLink.target.group-1;
+            thisLink.target.group = thisLink.source.group-1;
           }
           if (thisLink.target.group <= 0){
             valid = 0;
