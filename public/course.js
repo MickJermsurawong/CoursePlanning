@@ -255,7 +255,7 @@ function floyd(m){
       dragEle = true;
       d.group = whichBox(d);
       dir = 1;
-      if (prevPos > d.x) dir *= -1;
+      if (prevPos > d.x) dir = -1;
       prevPos = d.x;
       var valid = update();
       this.classList.add("dragging");
@@ -264,12 +264,19 @@ function floyd(m){
 
     function update(){
 
+      var valid = 1;
+
       if ((dir === -1) && dragEle){
-        var valid = 1;
+        console.log("drag left");
+        var thisLink;
         for (var i = 0; i < link.data().length; i++) {
-          var thisLink = link.data()[i];
-          if (thisLink.source.group === thisLink.target.group) thisLink.target.group = thisLink.target.group-1;
-          if (thisLink.target.group === 0){
+          thisLink = link.data()[i];
+
+          if (thisLink.source.group === thisLink.target.group) {
+            console.log("group equal");
+            thisLink.target.group = thisLink.target.group-1;
+          }
+          if (thisLink.target.group <= 0){
             valid = 0;
           }
         }
