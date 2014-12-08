@@ -656,6 +656,7 @@ function floyd(m){
       function getID(){
         FB.getLoginStatus(function(response) {
           if (response.status === 'connected') {
+            console.log(response.authResponse);
             return response.authResponse.userID;
         }
       })
@@ -845,6 +846,8 @@ function floyd(m){
     $('#compress').click(function (){
       loadClass();
     });
+
+    // $('#loadClass')
 
     $(document).on("keydown", function(e){
 
