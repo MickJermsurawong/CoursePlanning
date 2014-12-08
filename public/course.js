@@ -776,7 +776,7 @@ function floyd(m){
           document.getElementById('status').innerHTML = 
           'Please log into Facebook to load your classes. But try out classes from the search box.';
           
-
+          clearNodeEdge();
           newComp = toyComp;
           putInfo(-1);
           force.start();
