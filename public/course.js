@@ -824,6 +824,9 @@ function floyd(m){
         force.start();
         update();
       }
+      else{
+        console.log("lalala");
+      }
 
     });
 
