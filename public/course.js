@@ -191,7 +191,7 @@ function getObj(){
 
 // DRAG ACTIONS
 
-// Drag and click functionalities
+// Drag and Click functionalities
 function dragstarted(d) {
   source = [];
   target = [];
@@ -357,7 +357,7 @@ function compress(){
   update();
 }
 
-// Put the class and act on the data structures, and D# force layout objects
+// Put the class and act on the data structures, and D3 force layout objects
 function putInfo(classIndex, groups){
 
   oldComp = newComp.map(function(d){return d;});
@@ -597,7 +597,6 @@ for (var i = 0; i < 4; i++) {
 
 
 $(document).ready(function(){
-
 
   // Interact with back-end to get database
 
