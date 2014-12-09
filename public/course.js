@@ -818,11 +818,12 @@ function floyd(m){
       var whichClass = dictClassId[className];
       console.log(className);
       console.log(whichClass);
-      clearNodeEdge();
-
-      putInfo(whichClass);
-      force.start();
-      update();
+      if (whichClass !== -1){
+        clearNodeEdge();
+        putInfo(whichClass);
+        force.start();
+        update();
+      }
 
     });
 
