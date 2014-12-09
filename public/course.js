@@ -818,7 +818,7 @@ function floyd(m){
       var whichClass = dictClassId[className];
       console.log(className);
       console.log(whichClass);
-      if (whichClass !== -1){
+      if (whichClass !== undefined){
         clearNodeEdge();
         putInfo(whichClass);
         force.start();
