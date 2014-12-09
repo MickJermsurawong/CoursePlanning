@@ -808,28 +808,6 @@ function floyd(m){
     });
 
 
-
-
-
-    $("#submitButton").click(function (e) {
-      var whichClass = parseInt($('#select-list2').val());
-
-      var className = $('#searchClass').val();
-      var whichClass = dictClassId[className];
-      console.log(className);
-      console.log(whichClass);
-      if (whichClass !== undefined){
-        clearNodeEdge();
-        putInfo(whichClass);
-        force.start();
-        update();
-      }
-      else{
-        console.log("lalala");
-      }
-
-    });
-
     $('#searchClass').attr('size', ((offSet/6)|0)-3 );
 
     $('#loadClass').click(function (){
@@ -840,8 +818,6 @@ function floyd(m){
       updateClass();
     });
 
-
-    // $('#loadClass')
 
     $(document).on("keydown", function(e){
 
@@ -861,10 +837,12 @@ function floyd(m){
 
           if (className != ""){
             var whichClass = dictClassId[className];
-            clearNodeEdge();
-            putInfo(whichClass);
-            force.start();
-            update();
+            if (whichClass !== undefined){
+              clearNodeEdge();
+              putInfo(whichClass);
+              force.start();
+              update();
+            }
           }
 
         }
